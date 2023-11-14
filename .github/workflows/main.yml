@@ -16,8 +16,8 @@ jobs:
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.CICD_TESTING_KEY }}
 
     - name: Deploy to Server
       run: |
-        scp -r ./CICD-TESTEING/* user@your-server:/path/to/deployment
+        scp -r ./CICD-TESTEING/* ubuntu@ec2-54-175-115-251:/etc/CICDTESTING
