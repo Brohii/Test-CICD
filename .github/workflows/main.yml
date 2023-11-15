@@ -20,4 +20,6 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        scp -r ./CICD-TESTEING/* ubuntu@ip-172-31-27-166:/etc/CICDTESTING
+        scp -r ./CICD-TESTEING/* ubuntu@ec2-54-175-115-251.compute-1.amazonaws.com:/etc/CICDTESTING
+      env:
+        PRIVATE_KEY: ${{ secrets.CICD_TESTING_KEY }}
