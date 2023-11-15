@@ -13,6 +13,11 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
+      - name: Update known_hosts
+        run: |
+          ssh-keyscan -H ec2-54-175-115-251.compute-1.amazonaws.com >> ~/.ssh/known_hosts
+
+
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
