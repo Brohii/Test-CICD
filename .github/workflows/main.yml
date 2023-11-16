@@ -1,37 +1,28 @@
 name: Deploy to Server
 
+# Controls when the action will run. 
 on:
+  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches:
-      - main
+    branches: [ main ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  deploy:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-
-
-
-
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:       
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
       with:
-        ssh-private-key: ${{ secrets.CICD_TESTING_KEY }}
-
-
-    - name: Create known_hosts file
-      run: |
-        touch ~/.ssh/known_hosts
-
-    - name: Update known_hosts
-      run: |
-        ssh-keyscan -H ec2-54-175-115-251.compute-1.amazonaws.com >> ~/.ssh/known_hosts
-
-    - name: Deploy to Server
-      run: |
-        scp -r ./CICD-TESTEING/* ubuntu@ec2-54-175-115-251.compute-1.amazonaws.com:/etc/CICDTESTING
-      env:
-        PRIVATE_KEY: ${{ secrets.CICD_TESTING_KEY }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.CICD_SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/ubuntu/CICD
+          git pull origin main
+          git status
