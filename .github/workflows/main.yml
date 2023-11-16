@@ -25,3 +25,4 @@ jobs:
         script: |
           cd /home/ubuntu/CICD
           mkdir ABCD
+          mkdir AAA
