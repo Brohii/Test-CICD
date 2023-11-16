@@ -24,5 +24,4 @@ jobs:
         port: 22
         script: |
           cd /home/ubuntu/CICD
-          git pull origin main
-          git status
+          git clone https://github.com/Brohii/Test-CICD.git
