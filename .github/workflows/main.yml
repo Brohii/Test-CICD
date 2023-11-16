@@ -24,4 +24,4 @@ jobs:
         port: 22
         script: |
           cd /home/ubuntu/CICD
-          git clone https://github.com/Brohii/Test-CICD.git
+          mkdir ABCD
