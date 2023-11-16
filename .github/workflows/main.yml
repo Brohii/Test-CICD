@@ -24,4 +24,4 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd /home/ubuntu/CICD
-          mkdir ABCD
+          mkdir ABCDE
