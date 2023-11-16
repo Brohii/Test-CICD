@@ -24,4 +24,4 @@ jobs:
         port: 22
         script: |
           cd /home/ubuntu/CICD
-          mkdir ABCDe
+          mkdir ABCD
