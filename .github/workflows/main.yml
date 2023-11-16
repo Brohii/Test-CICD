@@ -23,5 +23,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          cd /home/ubuntu/CICD
           git pull origin main
           
