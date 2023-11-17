@@ -1,28 +1,62 @@
+# name: Deploy to Server
+
+# # Controls when the action will run. 
+# on:
+#   # Triggers the workflow on push or pull request events but only for the master branch
+#   push:
+#     branches: [ main ]
+
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   # This workflow contains a single job called "build"
+#   build:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:       
+#     - name: Deploy using ssh
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.HOST }}
+#         username: ${{ secrets.USERNAME }}
+#         key: ${{ secrets.SSH_KEY }}
+#         port: ${{ secrets.PORT }}
+#         script: |
+#           cd /home/ubuntu/CICD
+#           git pull origin main
+#           scp -r ./CICD-TESTEING/* ubuntu@ec2-54-175-115-251.compute-1.amazonaws.com:/etc/CICDTESTING
+
+
+
 name: Deploy to Server
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    branches:
+      - main
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  deploy:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:       
-    - name: Deploy using ssh
-      uses: appleboy/ssh-action@master
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd /home/ubuntu/CICD
-          git pull origin main
-          
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+    - name: Create known_hosts file
+      run: |
+        touch ~/.ssh/known_hosts
+
+    - name: Update known_hosts
+      run: |
+        ssh-keyscan -H ubuntu@ec2-54-157-211-227.compute-1.amazonaws.com >> ~/.ssh/known_hosts
+
+    - name: Deploy to Server
+      run: |
+        scp -r ./CICD-TESTEING/* ubuntu@ec2-54-157-211-227.compute-1.amazonaws.com:/etc/CICDTESTING
