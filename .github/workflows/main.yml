@@ -25,8 +25,8 @@ jobs:
         script: |
           cd /home/ubuntu/CICD
           git pull origin main
-          mkdir ABCD
-          scp -r ./CICD-TESTEING/* ubuntu@ec2-54-175-115-251.compute-1.amazonaws.com:/etc/CICDTESTING
+          mkdir ABCDkkk
+         # scp -r ./CICD-TESTEING/* ubuntu@ec2-54-175-115-251.compute-1.amazonaws.com:/etc/CICDTESTING
 
 
 
