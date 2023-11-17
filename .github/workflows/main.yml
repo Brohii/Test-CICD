@@ -55,7 +55,7 @@ jobs:
 
     - name: Update known_hosts
       run: |
-        ssh-keyscan -H 54.157.211.227 >> ~/.ssh/known_hosts
+        ssh-keyscan -H ubuntu@ec2-54-175-115-251.compute-1.amazonaws.com >> ~/.ssh/known_hosts
 
     - name: Deploy to Server
       run: |
