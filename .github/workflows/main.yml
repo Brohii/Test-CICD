@@ -26,6 +26,7 @@ jobs:
           cd /home/ubuntu/CICD
           git pull origin main
           mkdir -p ABCDe
+        #  Run Script commands
 
 
 
